@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.stream.player" name="Stream Player" version="0.9" provider-name="farwarx">
+<addon id="plugin.video.stream.player" name="Stream Player" version="1.0.0" provider-name="farwarx">
   <requires>
     <import addon="xbmc.python" 		version="2.19.0"/>
     <import addon="xbmc.json"    		version="6.20.0"/>
@@ -12,17 +12,17 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="fr">Farwarx fr summary</summary>
-    <description lang="fr">Farwarx fr description</description>
-    <summary lang="en">Farwarx en summary</summary>
-    <description lang="en">Farwarx en description</description>
+    <summary lang="fr">Stream Player pour une utilisation exclusive avec JSON.</summary>
+    <description lang="fr">Permet de lancer un stream vidéo depuis le réseau en JSON.</description>
+    <summary lang="en">Stream Player for exclusive use with JSON.</summary>
+    <description lang="en">Starts a video stream from the network in JSON.</description>
     <disclaimer lang="fr"></disclaimer>
     <language></language>
     <platform>all</platform>
-    <license>GNU uuuuuu</license>
+    <license>GNU GPLv2</license>
     <forum></forum>
     <website></website>
-    <email>farwarx@gmail.com</email>
-    <source>lien git</source>
+    <email></email>
+    <source>https://github.com/farwarx/json-stream-player</source>
   </extension>
 </addon>

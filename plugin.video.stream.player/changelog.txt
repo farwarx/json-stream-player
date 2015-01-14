@@ -1,1 +1,2 @@
-changelog maxime
+1.0.0 (2015-01-13)
+- initial revision for POC
