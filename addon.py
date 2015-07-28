@@ -15,10 +15,15 @@ def log(txt):
     xbmc.log(msg=message.encode("utf-8"), level=xbmc.LOGDEBUG)
 
 ##### Play #####
-def play(url, title, thumb):
+def play(url, title, params):
   xbmc.sleep(2000)
-  listitem = xbmcgui.ListItem (title, thumbnailImage=thumb)
-  log("URL: %s / Title: %s / Thumbnail: %s" % (url, title, thumb))
+  listitem = xbmcgui.ListItem (title)
+  logline = "URL: %s / Title: %s" % (url, title)
+  if( 'thumb' in params ):
+    listitem.setThumbnailImage(str(params['thumb'][0]))
+    logline = "%s / Thumbnail: %s" % (logline, str(params['thumb'][0]))
+
+  log(logline)
   xbmc.Player().play(url, listitem)
 
 ##### Sub #####
@@ -33,9 +38,9 @@ def subadd(lang, subtitle):
 # Recuperation des parametres JSON
 params = urlparse.parse_qs(urlparse.urlparse(sys.argv[2]).query)
 
-
-play(str(params['url'][0]), str(params['title'][0]), str(params['thumb'][0]))
+play(str(params['url'][0]), str(params['title'][0]), params)
 xbmc.sleep(2000)
-subadd(str(params['lang'][0]), str(params['subtitle'][0]))
+if( 'subtitle' in params ):
+  subadd(str(params['lang'][0]), str(params['subtitle'][0]))
 
 log("End")
