@@ -100,27 +100,31 @@ while( (not xbmc.abortRequested) and (player.tracking) and (not mark_as_viewed) 
       if position >= 95:
         log("Mark as viewed")
 
-	# Python = langage de merde donc
-	# je decoupe et recalcul mon url
+        # Python = langage de merde donc
+        # je decoupe et recalcul mon url
         urlparams = urlparse.urlparse(params['markviewed'])
         urlparams_copie = (urlparams[0], urlparams.netloc.split('@')[1]) + urlparams[2:]
         url = urlparse.urlunparse(urlparams_copie)
 
-	# python = langage de merde donc
-	# je cree un contexte pour pas etre emmerde avec ssl
+        # python = langage de merde donc
+        # je cree un contexte pour pas etre emmerde avec ssl
         ctx = ssl.create_default_context()
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
 
-	# python = langage de merde donc
-	# je cree une requete (c'est peut etre le moins pourri de tout le code)
-	# encore que je fait l'authen basic a la main car sinon c'est trop reloud
+        # python = langage de merde donc
+        # je cree une requete (c'est peut etre le moins pourri de tout le code)
+        # encore que je fait l'authen basic a la main car sinon c'est trop reloud
         req = urllib2.Request(url, 'action=set')
-        req.add_header('Authorization', 'Basic ' + (urlparams.username + ':' + urlparams.password).encode('base64').rstrip())
+        auth_cred = "%s:%s" % (urlparams.username, urlparams.password)
+        auth_cred = auth_cred.encode('base64')
+        auth_cred = auth_cred.replace("\n", "")
+        auth_cred = auth_cred.rstrip()
+        req.add_header('Authorization', "Basic %s" % (auth_cred))
 
         # Petit detail qui a son importance ca fonctionne toujours pas pour moi !?
         urlhandler = urllib2.urlopen(req, context=ctx)
-        data = json.load(urlhandler.read())
+        data = json.loads(urlhandler.read())
         if 'seen' in data:
           mark_as_viewed = True
     except Exception as e:
