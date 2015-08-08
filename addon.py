@@ -8,8 +8,8 @@ import json
 import ssl
 
 ##### Variables #####
-__addon__ 	= xbmcaddon.Addon()
-__addonname__	= __addon__.getAddonInfo('name')
+__addon__     = xbmcaddon.Addon()
+__addonname__ = __addon__.getAddonInfo('name')
 
 class MyPlayer(xbmc.Player):
   def __init__(self, *args, **kwargs):
@@ -38,6 +38,12 @@ def play(url, title, params):
   #xbmc.sleep(2000)
   listitem = xbmcgui.ListItem (title)
   logline = "URL: %s / Title: %s" % (url, title)
+  if( 'show' in params ):
+    listitem.setProperty('tvshowtitle', params['show'])
+    listitem.setProperty('title', params['episodetitle'])
+    listitem.setProperty('season', params['season'])
+    listitem.setProperty('episode', params['episode'])
+
   if( 'thumb' in params ):
     listitem.setThumbnailImage(params['thumb'])
     logline = "%s / Thumbnail: %s" % (logline, params['thumb'])
@@ -73,6 +79,7 @@ def get_params():
 
 #the program mode
 params = get_params()
+#log(str(params))
 
 if (not 'version' in params) or (int(params['version']) > 2):
   xbmc.executebuiltin('Notification("%s","Addon obsolete",10000)' %(__addonname__) )
