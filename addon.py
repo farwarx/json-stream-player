@@ -134,6 +134,7 @@ while( (not xbmc.abortRequested) and (player.tracking) and (not mark_as_viewed) 
         data = json.loads(urlhandler.read())
         if 'seen' in data:
           mark_as_viewed = True
+          xbmc.executebuiltin('Notification("%s","Marked as view",2000)' %(__addonname__) )
     except Exception as e:
       log(str(e))
 
