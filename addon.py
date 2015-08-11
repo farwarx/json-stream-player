@@ -50,7 +50,7 @@ def play(url, title, params):
   #listitem.setProperty("IsPlayable","true")
 
   log(logline)
-  xbmc.Player().play(url, listitem)
+  xbmc.Player().play(url.replace(' ', '%20'), listitem)
 
   #listitem.setPath(url)
   #xbmcplugin.addDirectoryItem(handle = int(sys.argv[1]), url=url, listitem=listitem, isFolder=False)
